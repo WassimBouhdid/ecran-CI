@@ -1,0 +1,100 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 10s linear;
+  }
+}
+
+body { /*F2Ville*/
+  animation: rgb 40s linear infinite;
+  background: #FF3254 !important;
+}
+
+@keyframes rgb {/* F2Ville*/
+  from {
+    filter: hue-rotate(0deg);
+  }
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.App-header {
+  /* background-color: #282c34; */
+  background: #FF3254 !important;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.rickroll-link {
+  margin-top: 30px;
+  color: #61dafb;
+  font-size: medium;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Page-title{
+  color:blueviolet;
+  font-size: 3em; /* Adjust the size as needed */
+  margin-bottom: 100px; /* Space between the title and the logo */
+}
+
+
+.upload-button{
+  margin-top: 70px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  font-size: 30px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.4s;
+}
+
+.send-button{
+  margin-top: 30px;
+  background-color: grey;
+  color: white;
+  cursor: not-allowed;
+  font-size: 30px;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition-duration: 0.4s;
+}
+
+.send-button.enabled{
+  background-color: black;
+  cursor: pointer;
+}
+
+
+.one-line{
+  display: flex;
+  
+}
