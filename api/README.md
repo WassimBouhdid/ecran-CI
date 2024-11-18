@@ -48,7 +48,10 @@ Flask API to receive new images, files and plain text to display on the screen i
 
 ### Create required folder
 Run the app (see next step). In case of error `File or directory not found`, create the required folder with `mkdir`.
-
+```bash
+    mkdir -p db/resources/uploaded_files
+    mkdir -p static/current_displayed_img
+```
 ### Run the API
    ```bash
    python3 main.py

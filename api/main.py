@@ -1,8 +1,18 @@
-from flask import Flask, jsonify, request, render_template
-from flask_cors import CORS
-from werkzeug.utils import secure_filename
-import os
-from shutil import copyfile
+try:
+    from flask import Flask, jsonify, request, render_template
+    from flask_cors import CORS
+    from werkzeug.utils import secure_filename
+    import os
+    from shutil import copyfile
+except ModuleNotFoundError as e:
+    print("""\n \t==> Erreur durant l'importation. \n 
+            \tVérifiez que les librairies nécessaires sont installées et que venv est activé. Se référer au README. \n\n 
+            \tLancez avec les commandes suivantes: \n 
+            \t$python -m venv venv \n 
+            \t$source venv/bin/activate \n 
+            \t$pip install -r requirements.txt \n 
+            \t$python3 main.py""")
+    exit()
 
 UPLOAD_FOLDER = 'db/resources/uploaded_files'
 CURRENT_DISPLAYED_IMG_FOLDER = 'static/current_displayed_img'
@@ -53,7 +63,7 @@ def home():
 def get_home_screen():
     #get filename in the current displayed image folder
     files = os.listdir(app.config['CURRENT_DISPLAYED_IMG_FOLDER'])
-    return render_template('display_screen/display.html')
+    return render_template('template/display.html')
 
 # Define a route for getting some data
 @app.route('/api/data', methods=['GET'])

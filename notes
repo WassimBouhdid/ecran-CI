@@ -1,0 +1,98 @@
+# Diverses notes
+
+Diverses notes, à organiser en une documentation plus propre
+## SEE ALSO THE DOCUMENTATION ON NOTION
+## SEE ALSO THE README.md
+
+# ____________________________
+## structure du projet en 5 parties : 
+1. une documentation qui explique comment fonctionne le raspi
+  -> Notion + readme + que faire si on devait le réinstaller + expliquer les composants ci-dessous
+2. Des scripts et services qui tournent au démarage avec toutes les configs + explications de comment l'adapter et le lancer au startup 
+(e.g. reboot tous les jours, ouvrir les ports, faire les mise à jours, git pull ?, ... + lancer les servers, l'applicaiton principale et les configs necessaire (ce qui est dans ce git pour l'instant), etc)
+
+1. L'application React pour les utilisateurs (pour envoyer une image)
+2. L'API Flask en Python (reçoit les images)
+3. Le fichier .html à lancer sur firefox. Actuellement localisé dans l'API, car c'est l'API qui le donne via `http://192.168.1.124:5000/home_screen` --> `/~/Documents/screen/api/templates/display_screen/display.html`. 
+# ____________________________
+## How to start a program at boot ? 
+It is great to have a program that works on a raspi... but if you need to type commands by ssh everytime you boot it, it won't be practicable... especially if the raspi is located in a place where you usually don't bring your laptop. Therefore, it is better to make any desired program to run all the time actually start automatically at boot. 
+
+For now, it is a mess, with things programmed with `cron`, `autostart`, and `systemd`. A good practice would be to start all with `systemd` (/!\ as a user, not as root). If you want to modify anything about program starting at boot, you are encourage to first have a read of this very clear beginner guide : https://github.com/thagrol/Guides/blob/main/boot.pdf
+
+### Current configuration
+As of 18/11/24 : 
+#### 1. `cron` : Start the browser in fullscreen
+To view : 
+
+```$ crontab -e```
+
+Content of the file : 
+
+```@reboot sleep 10 && DISPLAY=:0 firefox --kiosk 127.0.0.1:5000/home_screen```
+
+This line asks `cron` to start the browser (`firefox`) in fullscreen (`--kiosk` mode), and with the `.html` given by the API on `localhost:5000`.
+
+
+#### 2. systemd : The Python API and the React frontend. 
+The two scripts ending with `.service` are located in `~/.config/systemd/user`.
+If editing a file (with `nano`, `vim` or any other text editor), think after that to restart the service ! For this : 
+```bash
+$ systemctl --user daemon-reload
+$ systemctl --user restart service_name.service 
+```
+Then check that it started well with either 
+``` bash
+$ systemctl --user restart service_name.service
+$ #or
+$ journalctl --user -u service_name.service
+```
+
+If you want to change the programs that start at boot, you can enable/disable services with : 
+
+`$ systemctl --user enable/disable service_name.service`
+
+
+NOTE : for now, there is also `~/Documents/screen/scripts/startup_script_CI_screen_app.service` which was thought to replace the crontab line, but for now it does nothing. On the long term, it would be nice to migrate everything to systemd. But remember the elementary rule of programming : *if it works, don't touch it*.
+
+
+# _______________________________
+
+
+### Make the app accessible from local network
+1. get local IP address : `$ifconfig` (eg. `192.168.1.124`)
+
+2. Open the port on the server 
+`$sudo ufw allow 3000` 
+`$sudo ufw allow 5000` 
+
+2. React app : add server's IP address in package.json 
+"scripts": {
+    "start": "react-scripts start --host 192.168.1.124",
+  },
+
+3. Update (in React > App.js) the IP address of the Flask API
+
+### Give the link to the people
+Generate a qr code to local IP address : 
+> duckduckgo > research "`qr + < address >`"
+
+eg: https://duckduckgo.com/?q=qr+http%3A%2F%2F127.0.0.1%3A3000%2F&ia=answer
+
+Print the QR code with small explaination
+
+
+### Configure locally
+edit IP address in local file, or in .env
+
+### Run the app
+cd client
+npm start 
+(build one day for prod)
+
+cd ../api
+python3 main.py
+
+
+### Use the app
+go to http://< IP adress >:< Port >

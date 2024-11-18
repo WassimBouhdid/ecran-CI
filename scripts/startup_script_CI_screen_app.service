@@ -1,0 +1,10 @@
+[Unit]
+Description=Run CI Screen App Startup Script
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/startup_script_CI_screen_app.sh
+WorkingDirectory=/home/ci/Documents/screen
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,15 @@
+[Unit]
+Description=React frontend app to let people send images to the raspi and display them on the CI screen
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ci/Documents/screen/client_ecran_ci
+Environment=PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+ExecStart=/usr/bin/npm start
+Restart=always
+StandardOutput=file:/home/ci/Documents/screen/logs_monitor/frontend.logs
+StandardError=file:/home/ci/Documents/screen/logs_monitor/frontend.logs
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,16 @@
+[Unit]
+Description=Python Flask API to receive and display images to the CI screen
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ci/Documents/screen/api 
+ExecStart=/home/ci/Documents/screen/api/venv/bin/python /home/ci/Documents/screen/api/main.py  
+Environment="PATH=/home/ci/Documents/screen/api/venv/bin"
+Restart=always
+StandardOutput=file:/home/ci/Documents/screen/logs_monitor/api.logs
+StandardError=file:/home/ci/Documents/screen/logs_monitor/api.logs
+
+[Install]
+WantedBy=default.target
+
