@@ -43,7 +43,7 @@ client_ecran_CI/.parcel-cache
 *.sw?
 
 # Python
-api\venv\
+api/venv/
 *.py[cod]
 *.pyc
 __pycache__/
