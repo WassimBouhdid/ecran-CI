@@ -2,6 +2,8 @@ try:
     from flask import Flask, jsonify, request, render_template
     from flask_cors import CORS
     from werkzeug.utils import secure_filename
+    import hashlib 
+    import json
     import os
     from shutil import copyfile
 except ModuleNotFoundError as e:
@@ -26,6 +28,13 @@ app.config['CURRENT_DISPLAYED_IMG_FOLDER'] = CURRENT_DISPLAYED_IMG_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 
 CORS(app)
+
+ADMIN_PW = "4097889236a2af26c293033feb964c4cf118c0224e0d063fec0a89e9d0569ef2"
+scores = {
+    'toges': 0,
+    'non-toges': 0,
+}
+SCORES_FILE = 'scores.json'
 
 def is_allowed_file(filename):
     return '.' in filename and \
@@ -53,11 +62,26 @@ def log_feedback(data):
     with open("db/resources/feedback.txt", "a") as file:
         file.write(data['feedback'] + "\n")
         file.close()       
-     
+
+def save_scores():
+    with open(SCORES_FILE, 'w') as f:
+        json.dump(scores, f)
+
+def load_scores():
+    global scores
+    if os.path.exists(SCORES_FILE):
+        with open(SCORES_FILE, 'r') as f:
+            scores = json.load(f)
+
+
 # Define a simple route
 @app.route('/', methods=['GET'])
-def home():
-    return "Welcome to the Flask API!"
+def hello_world():
+   return """
+        <p>Hello from the Rasb 🍓 !<p>
+        <p><a href="/cli">Link<a> to the cli page</p>
+        <p><a href="/change_display">Link<a> to the change_display page</p>
+        """
 
 @app.route('/home_screen', methods=['GET'])
 def get_home_screen():
@@ -124,8 +148,54 @@ def post_feedback():
         'received_data': data,
         'status': 'success'
     })
-    
+
+@app.route('/cli', methods=['GET', 'POST'])
+def cli():
+    if request.method == 'POST':
+        pw = request.form.get('pw')  
+        pw_hashed = hashlib.sha256(pw.encode()).hexdigest() 
+        if pw_hashed == ADMIN_PW:
+            return render_template('enfer/admin.html')
+        else:
+            return render_template('enfer/login.html', wrongPassword = True, sha256 = pw_hashed)
+    else:
+        return render_template('enfer/login.html')
+
+@app.route('/api/score', methods=['GET', 'POST'])
+def api():
+    if request.method == 'POST':
+        data = request.get_json()
+        operation = data.get('operation')
+        cercle = data.get('cercle')
+
+        if operation == 'add':
+            scores[cercle] += 1
+        elif operation == 'sub' and scores[cercle] > 0:
+            scores[cercle] -= 1
+        save_scores()
+        return jsonify({'succeed': True, 'scores': scores})
+    else:
+        return jsonify(scores) 
+
+@app.route('/display')
+def display():
+    return render_template('enfer/display.html')
+
+
+@app.route('/change_display')
+def change_display():
+    return render_template('change_display/index.html')
+
+@app.route('/change_display_api', methods=['GET', 'POST'])
+def change_display_api():
+    if request.method == 'POST':
+        data = request.get_json()
+        if data.get('operation') == 'enfer':
+            os.system('firefox http://127.0.0.1:5000/display')
+
 
 # Run the application
 if __name__ == '__main__':
+    load_scores()
     app.run(host='0.0.0.0', port=5000, debug=True)
+    save_scores()
