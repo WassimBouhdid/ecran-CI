@@ -1,5 +1,5 @@
 import logo from './LogoCI.png';
-import './App.css';
+import '../css/App.css';
 import React, { useState, useRef } from "react";
 
 const PORT = 5000;

@@ -15,17 +15,19 @@
 
 body { /*F2Ville*/
   animation: rgb 40s linear infinite;
-  background: #FF3254 !important;
+  background: #FF3254 ;
 }
 
-@keyframes rgb {/* F2Ville*/
+/*
+@keyframes rgb {
   from {
     filter: hue-rotate(0deg);
   }
   to {
     filter: hue-rotate(360deg);
   }
-}
+ }  
+*/
 
 .App-header {
   /* background-color: #282c34; */
