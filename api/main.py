@@ -6,6 +6,9 @@ try:
     import json
     import os
     from shutil import copyfile
+
+    from dotenv import load_dotenv
+
 except ModuleNotFoundError as e:
     print("""\n \t==> Erreur durant l'importation. \n 
             \tVérifiez que les librairies nécessaires sont installées et que venv est activé. Se référer au README. \n\n 
@@ -16,25 +19,23 @@ except ModuleNotFoundError as e:
             \t$python3 main.py""")
     exit()
 
-UPLOAD_FOLDER = 'db/resources/uploaded_files'
-CURRENT_DISPLAYED_IMG_FOLDER = 'static/current_displayed_img'
+load_dotenv()
+
 MAX_CONTENT_LENGTH = 512 * 1024 * 1024  # 512 MB
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4'}
 
 # Create a Flask application instance
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['CURRENT_DISPLAYED_IMG_FOLDER'] = CURRENT_DISPLAYED_IMG_FOLDER
+app.config['UPLOAD_FOLDER'] = os.getenv('UPLOAD_FOLDER')
+app.config['CURRENT_DISPLAYED_IMG_FOLDER'] = os.getenv('CURRENT_DISPLAYED_IMG_FOLDER')
 app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 
 CORS(app)
 
-ADMIN_PW = "4097889236a2af26c293033feb964c4cf118c0224e0d063fec0a89e9d0569ef2"
 scores = {
     'toges': 0,
     'non-toges': 0,
 }
-SCORES_FILE = 'scores.json'
 
 def is_allowed_file(filename):
     return '.' in filename and \
@@ -64,13 +65,13 @@ def log_feedback(data):
         file.close()       
 
 def save_scores():
-    with open(SCORES_FILE, 'w') as f:
+    with open(os.getenv('SCORES_FILE'), 'w') as f:
         json.dump(scores, f)
 
 def load_scores():
     global scores
-    if os.path.exists(SCORES_FILE):
-        with open(SCORES_FILE, 'r') as f:
+    if os.path.exists(os.getenv('SCORES_FILE')):
+        with open(os.getenv('SCORES_FILE'), 'r') as f:
             scores = json.load(f)
 
 
@@ -82,7 +83,7 @@ def hello_world():
         <p><a href="/cli">Link<a> to the cli page</p>
         <p><a href="/change_display">Link<a> to the change_display page</p>
         """
-
+   
 @app.route('/home_screen', methods=['GET'])
 def get_home_screen():
     #get filename in the current displayed image folder
@@ -149,17 +150,7 @@ def post_feedback():
         'status': 'success'
     })
 
-@app.route('/cli', methods=['GET', 'POST'])
-def cli():
-    if request.method == 'POST':
-        pw = request.form.get('pw')  
-        pw_hashed = hashlib.sha256(pw.encode()).hexdigest() 
-        if pw_hashed == ADMIN_PW:
-            return render_template('enfer/admin.html')
-        else:
-            return render_template('enfer/login.html', wrongPassword = True, sha256 = pw_hashed)
-    else:
-        return render_template('enfer/login.html')
+
 
 @app.route('/api/score', methods=['GET', 'POST'])
 def api():
@@ -177,21 +168,16 @@ def api():
     else:
         return jsonify(scores) 
 
-@app.route('/display')
-def display():
-    return render_template('enfer/display.html')
 
-
-@app.route('/change_display')
-def change_display():
-    return render_template('change_display/index.html')
 
 @app.route('/change_display_api', methods=['GET', 'POST'])
 def change_display_api():
     if request.method == 'POST':
         data = request.get_json()
         if data.get('operation') == 'enfer':
-            os.system('firefox http://127.0.0.1:5000/display')
+            os.system(f'firefox --kiosk {os.getenv('IP_ADDRESS_FRONTEND')}/score')
+        if data.get('operation') == 'enfer':
+            os.system(f'firefox --kiosk {os.getenv('IP_ADDRESS_FRONTEND')}/image')
 
 
 # Run the application

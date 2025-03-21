@@ -25,19 +25,19 @@
     <img id="uniqueImage" alt="Sex and Choppes">
     <script>
         // Constant image path without specifying the extension
-        const folderPath = 'static/current_displayed_img/'; // Path to the folder containing the image
+        const folderPath = '../static/img/'; // Path to the folder containing the image
 
         // List of common image file extensions
         const extensions = ['png', 'jpg', 'jpeg', 'gif'];
 
         // Function to try loading the image
         function tryLoadImage(index) {
-            if (index >= extensions.length) {
-                document.getElementById('uniqueImage').alt = 'Image not found';
-                return;
-            }
+            // if (index >= extensions.length) {
+            //     document.getElementById('uniqueImage').alt = 'Image not found';
+            //     return;
+            // }
 
-            const imageUrl = `${folderPath}image.${extensions[index]}`;
+            const imageUrl = `${folderPath}ath_vs_bx_bg.jpg`;
             const imgElement = document.getElementById('uniqueImage');
 
             // Attempt to load the image
