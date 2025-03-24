@@ -41,13 +41,13 @@ useEffect(() => {
       <main id="mainAdmin">
         <header id="headerAdmin" >Admin Panel</header>
         <div id="toges">
-            <span>Togé.e.s</span>
+            <span>POPO</span>
             <div class="counter" id="toges-counter">Error</div>
             <button class="updateButtonAdmin" onClick={() => updateScore('toges', 'add')}>+1 toges</button>
             <button class="updateButtonAdmin" onClick={() => updateScore('toges', 'sub')}>-1 toges</button>
         </div> 
         <div id="non-toges">
-            <span>Non-togé.e.s</span>
+            <span>CI</span>
             <div class="counter" id="non-toges-counter">Error</div>
             <button class="updateButtonAdmin" onClick={() => updateScore('non-toges', 'add')}>+1 non-toges</button>
             <button class="updateButtonAdmin" onClick={() => updateScore('non-toges', 'sub')}>-1 non-toges</button>

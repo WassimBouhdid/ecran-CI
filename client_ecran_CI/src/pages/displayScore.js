@@ -17,18 +17,18 @@ function DisplayScore() {
 
 useEffect(() => {
   fetchScores(); // Initial fetch on page load
-  setInterval(fetchScores, 2000); // Poll every 5 seconds
+  setInterval(fetchScores, 20000); // Poll every 5 seconds
 }, []);
 
   return (
     <div>
       <main id="mainScore">
           <div id="toges">
-              <span>Togé.e.s</span>
+              <span>POPO</span>
               <div class="counter" id="toges-counter">Error</div>
           </div> 
           <div id="non-toges">
-              <span>Non-togé.e.s</span>
+              <span>CI</span>
               <div class="counter" id="non-toges-counter">Error</div>
           </div> 
       </main>

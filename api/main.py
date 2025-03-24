@@ -168,6 +168,15 @@ def api():
     else:
         return jsonify(scores) 
 
+@app.route('/cli', methods=['POST'])
+def cli():
+        pw = request.form.get('pw')  
+        print(pw)
+        pw_hashed = hashlib.sha256(pw.encode()).hexdigest() 
+        if pw_hashed == ADMIN_PW:
+            print('bon mot de passe')
+        else:
+            print('mauvais mot de passe')
 
 
 @app.route('/change_display_api', methods=['GET', 'POST'])
