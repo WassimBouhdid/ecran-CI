@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 function DisplayScore() {
   async function fetchScores() {
-    let response = await fetch("http://10.66.151.182:5000/api/score");
+    let response = await fetch("http://127.0.0.1:5000/api/score");
     let data = await response.json();
 
     for (let id in data) {

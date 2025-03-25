@@ -5,7 +5,7 @@ import React, { useState, useRef } from "react";
 function AdminPage() {
 
   async function fetchScores() {
-    let response = await fetch("http://10.66.151.182:5000/api/score");
+    let response = await fetch("http://127.0.0.1:5000/api/score");
     let data = await response.json();
 
     for (let id in data) {
@@ -18,7 +18,7 @@ function AdminPage() {
 
 async function updateScore(cercle, operation) {
   
-    let response = await fetch("http://10.66.151.182:5000/api/score", {
+    let response = await fetch("http://127.0.0.1:5000/api/score", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ cercle: cercle, operation: operation })
