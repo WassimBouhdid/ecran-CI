@@ -16,20 +16,17 @@
      fetch('http://127.0.0.1:5000/random_img')
     .then(response => response.json())
     .then(data => {
-        console.log(data["imageName"])
-        console.log(typeof data["imageName"])
-        srcString = "/static/uploaded_files/"+data["imageName"]
+        srcString = `/static/uploaded_files/${String(data["imageName"])}`
+        const imgElement = document.getElementById('uniqueImage');
+
+        // Attempt to load the image
+        imgElement.src = srcString;
     })
     .catch(error => {
         console.error('Error:', error)
     });
 
     
-    
-    const imgElement = document.getElementById('uniqueImage');
-
-     // Attempt to load the image
-     imgElement.src = srcString;
  }
 
  // Start the process
@@ -37,4 +34,4 @@
 
  setTimeout(function(){
  location.reload();
- }, 100000);
+ }, 10000);

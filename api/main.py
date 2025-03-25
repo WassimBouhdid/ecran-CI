@@ -100,7 +100,7 @@ def random_img():
     directory = Path("static/uploaded_files")
     files = [f for f in directory.iterdir() if f.is_file()]
     files_sorted = sorted(files, key=lambda f: f.stat().st_ctime)
-
+    print(files_sorted)
     last_images = files_sorted[len(files_sorted)-1]
     last_images_string = str(last_images).split("\\")[-1]
     print(last_images_string)
