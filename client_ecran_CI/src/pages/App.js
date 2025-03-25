@@ -3,7 +3,7 @@ import '../css/App.css';
 import React, { useState, useRef } from "react";
 
 const PORT = 5000;
-const API_IP_ADDRESS = "192.168.1.60"
+const API_IP_ADDRESS = "127.0.0.1"
 const serverURL = `http://${API_IP_ADDRESS}:${PORT}`;
 function App() {
   const [fileName, setFileName] = useState("");
