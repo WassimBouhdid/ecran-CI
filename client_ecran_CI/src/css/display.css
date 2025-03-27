@@ -1,0 +1,57 @@
+@font-face{
+    font-family: Fjalla One;
+    src: url("./font/FjallaOne-Regular.ttf");
+}
+html, body {
+    height: 100%; /* Make sure the body and html take up the full viewport height */
+    margin: 0; /* Remove default margin */
+}
+
+#mainScore {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    /* grid-template-rows: repeat(2, 1fr); */
+    gap: 100px;
+    padding: 150px;
+
+    height: 100vh;  /* Full viewport height */
+    width: 100vw;   /* Full viewport width */
+    box-sizing: border-box; /* Ensures padding is included in the width/height calculation */
+    background-image: url("../static/img/enfer.gif");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#mainScore > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 8px;
+}
+
+#mainScore > div > span {
+    display: block;
+    font-family: Fjalla One;
+    font-size: 5em;
+    margin-bottom: 10px;
+}
+#mainScore > div > .counter {
+    font-family: Fjalla One;
+    font-size: 20em;
+}
+
+#toges {
+    background-color: #f1f1f1;
+    border: solid 2px #1a1a1a;
+}
+
+#non-toges {
+    background-color: #f3e5f5;
+    border: solid 2px #5217A2;
+}
+
+.counter {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
