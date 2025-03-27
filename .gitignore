@@ -32,6 +32,7 @@ client_ecran_CI/.eslintcache
 client_ecran_CI/.npm
 client_ecran_CI/.yarn-integrity
 client_ecran_CI/.parcel-cache
+api/.env
 
 # IDEs and editors
 .vscode/
@@ -43,6 +44,7 @@ client_ecran_CI/.parcel-cache
 *.sw?
 
 # Python
+api/venv/
 *.py[cod]
 *.pyc
 __pycache__/
