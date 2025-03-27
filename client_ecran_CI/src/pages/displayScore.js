@@ -17,7 +17,7 @@ function DisplayScore() {
 
 useEffect(() => {
   fetchScores(); // Initial fetch on page load
-  setInterval(fetchScores, 20000); // Poll every 5 seconds
+  setInterval(fetchScores, 5000); // Poll every 5 seconds
 }, []);
 
   return (
