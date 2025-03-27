@@ -3,7 +3,13 @@
 Diverses notes, à organiser en une documentation plus propre
 ## SEE ALSO THE DOCUMENTATION ON NOTION
 ## SEE ALSO THE README.md
-
+# ____________________________
+## Idées d'amélioration
+- au lieu d'afficher uniquement la dernière image, faire un diapo de toutes les X dernières images/imaes des X dernières minutes
+- admin portal pour permettre à des admins prédéfinis de prendre le controle (par ex: choisir d'afficher une image fixe, de lancer un autre programme, ...)
+- afficher d'autres éléments à côté de l'image affichée dans le navigateur : nombre de photos envoyées, transactions en crypto du CI, musique qui passe, ...
+- revoir la page d'accueil du fronted. 
+- Toutes les idées sont les bienvenues
 # ____________________________
 ## structure du projet en 5 parties : 
 1. une documentation qui explique comment fonctionne le raspi

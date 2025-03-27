@@ -24,7 +24,7 @@ Ce Readme considère que vous avez les connaissances suffisantes pour :
 - Se connecter en SSH
 - Avoir des connaissances basique d'informatique 
 
-En cas de difficultés, de nombreuses ressources en ligne permettent de s'y retrouver. Ne pas hésiter à demander à un contributeur de ce repo ou à un membre de l'Urlab qui seront revis de vous aider. 
+En cas de difficultés, de nombreuses ressources en ligne permettent de s'y retrouver. Ne pas hésiter à demander à un contributeur de ce repo ou à un membre de l'Urlab qui seront ravis de vous aider. 
 
 ### Cloner ce repository
 Une fois connecté en SSH (ou même en mode graphique directement sur un écran à l'aide d'une souris et d'un clavier en fait), suivez les étapes suivantes : 
