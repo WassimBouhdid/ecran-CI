@@ -1,6 +1,6 @@
 import logo from './LogoCI.png';
 import '../css/App.css';
-import React, { useState, useRef } from "react";
+import React, { useState, useRef , useEffect} from "react";
 
 const PORT = 5000;
 const API_IP_ADDRESS = "127.0.0.1"
@@ -9,6 +9,7 @@ function App() {
   const [fileName, setFileName] = useState("");
   const [imageURL, setImageURL] = useState(""); // State to store the image URL
   const [isFileSelected, setIsFileSelected] = useState(false); // State to track file selection
+  const [sliderValue, setSliderValue] = useState("10"); // State to store slider value
   const fileInputRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null); // State to store the selected file
 
@@ -51,13 +52,13 @@ function App() {
       });
 
       if (response.ok) {
-        alert('File uploaded successfully!');
+        alert("L'image a été envoyé avec succès. Elle sera stockée sur nos serveur pendant 42 ans.");
       } else {
-        alert('Failed to upload file.');
+        alert("Erreur en envoyant l'image.");
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred while uploading the file.');
+      alert("Une erreur s'est produite lors de l'upload de l'image");
     }
   };
 
@@ -83,12 +84,34 @@ function App() {
     
     };
 
+  // Handle slider change
+  const handleSliderChange = (event) => {
+    setSliderValue(event.target.value);
+  };
+
+  // Update the CSS variable whenever sliderValue changes
+  useEffect(() => {
+    // Update the CSS custom property (--logo-rotation-speed) with the slider value
+    document.documentElement.style.setProperty('--logo-rotation-speed', `${sliderValue}s`);
+  }, [sliderValue]); // Run whenever sliderValue changes
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1 className="Page-title">Gateway to CI's CrIne 🚀</h1>
+        <h1 className="Page-title">Envoie photo sur l'écran du CI zebi 🚀</h1>
         <img src={logo} className="App-logo" alt="logo CI"  />
+        <div className='one-line'>
+          <input
+            type="range"
+            id="logo-speed-slider"
+            className="slider"
+            min="0.1"
+            max="60"
+            value={sliderValue}
+            onChange={handleSliderChange}
+          />
+          <p>{sliderValue}</p>
+        </div>
         <input
                 type="file"
                 accept="image/*, .mp4"
@@ -97,7 +120,7 @@ function App() {
                 onChange={handleFileChange}
                 ref={fileInputRef}
             />
-        <button class="upload-button" onClick={handleUploadButtonClick}>
+        <button className="upload-button" onClick={handleUploadButtonClick}>
             Upload une photo
         </button>
 
@@ -114,22 +137,30 @@ function App() {
                 <div style={{ marginTop: 20, fontSize:"16px" }}>
                     <p>Selected File: <code>{fileName}</code></p>
                 </div>
-            )}
+            )} 
 
         {imageURL && ( //display the image once selected
-          <div>
+          <div> 
             <img src={imageURL} alt="The img that was selected" style={{ maxWidth: "50%", height: "auto"}}/>
           </div>
         )}
 
         <div style={{marginTop:30}} className="one-line">
-          <input type="text" placeholder="Donne du feedback ou raconte une anecdote marrante" class="input-field"/>
-          <button class="normal-button" onClick={sendFeedback}>Envoyer</button>
+          <input type="text" placeholder="Dis un truc drôle" className="input-field"/>
+          <button className="normal-button" onClick={sendFeedback}>Envoyer</button>
         </div>
         <a className="rickroll-link" href="https://youtu.be/dQw4w9WgXcQ?si=2xjRwrsmoOTJeL76" target="_blank" rel="noopener noreferrer">Video de Bapteme CI 2024</a>
       </header>
+      <footer className='footer'>
+        <p>&copy; 2025 Cercle Informatique. CI CI CI sex & choppes 🍻</p>
+        made with 💜 at CI by Crevetteboiii(i)* 🦐🦐🦐
+      </footer>
+
+
     </div>
   );
+
+    
 }
 
 export default App;
