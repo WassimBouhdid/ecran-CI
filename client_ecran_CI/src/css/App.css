@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -9,7 +10,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 10s linear;
+    animation: App-logo-spin infinite var(--logo-rotation-speed) linear; /*speed of rotatio is in a variable*/
   }
 }
 
@@ -63,7 +64,6 @@ body { /*F2Ville*/
   margin-bottom: 100px; /* Space between the title and the logo */
 }
 
-
 .upload-button{
   margin-top: 70px;
   background-color: black;
@@ -99,4 +99,56 @@ body { /*F2Ville*/
 .one-line{
   display: flex;
   
+}
+
+.footer{
+    background-color: black;
+    color: white;
+    padding: "2px";
+    text-align: "center";
+}
+
+
+/* _____________
+
+  SLIDER (many lines for something ugly): 
+  _______________*/
+
+.slider{
+  margin-top: 10px;
+  width: 100%; /* Width of the outside container */
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 15px; /* Specified height */
+  background: black; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: blueviolet; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  background: blueviolet; /* Green background */
+  cursor: pointer; /* Cursor on hover */
 }
